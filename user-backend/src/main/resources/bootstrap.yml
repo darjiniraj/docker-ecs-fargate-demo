@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: test
+  profiles:
+    active: qa
+  cloud:
+    config:
+      uri: http://18.206.160.185:8888

@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: user-ui
+  profiles:
+    active: local
+  cloud:
+    config:
+      uri: http://18.206.160.185:8888
+server:
+  port: 9090
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
