@@ -7,11 +7,11 @@
   <button (click)="getApiStatus()">Check API Status</button>
 
   <p>API Status is {{appStatus}}</p>
-
-
-  <hr>
+<router-outlet></router-outlet>
+<a routerLink="/" routerLinkActive="active" >Back</a>
+  <!-- <hr>
   <button (click) = "getUsers()">Get All Users</button>
-  <p> users {{users}}</p>
+  <p> users {{users}}</p> -->
   
 </div>
 

@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'user-ui';
+  title = 'Employee-ui';
   appStatus = 'Down' ;
   users = '';
 
