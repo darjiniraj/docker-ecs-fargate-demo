@@ -1,3 +1,26 @@
-<p>
-  employee-list works!
-</p>
+<div class="col-md-6" style="align-self: center;">
+  <h2> Employee Details</h2>
+  <button class="btn btn-danger" (click)="addEmployee()"> Add User</button>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th class="hidden">Id</th>
+      <th>FirstName</th>
+      <th>LastName</th>
+      <th>Department</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let employee of data">
+      <td class="hidden">{{employee.id}}</td>
+      <td>{{employee.firstName}}</td>
+      <td>{{employee.lastName}}</td>
+      <td>{{employee.department}}</td>
+      <td>
+        <button class="btn btn-danger" (click)="deleteEmployee(employee)"> Delete</button>
+        <button class="btn btn-danger" (click)="editEmployee(employee)" style="margin-left: 20px;"> Edit</button></td>
+    </tr>
+    </tbody>
+  </table>
+</div>

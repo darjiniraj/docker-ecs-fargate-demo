@@ -1,5 +1,6 @@
 package in.niraj.userfrontend.controller;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,8 +26,8 @@ public class ConfigController {
     private static final Logger logger = LoggerFactory.getLogger(ConfigController.class);
 
 
-    @Value("${base.url}")
-    private String baseUrl;
+    //@Value("${base.url:http://localhost:8080}")
+    private String baseUrl = "http://localhost:8080";
 
     @GetMapping("/config")
     @ResponseBody
@@ -43,12 +44,52 @@ public class ConfigController {
     }
 
 
-    @GetMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
-    public String getAllEmployeesJSON() {
-        return getResponse("users");
+    @PostMapping("/save")
+    public ResponseEntity<JsonNode> saveEmployee(@RequestBody Object o) {
+        System.out.println("Save Employee");
+        final String uri = baseUrl+ "save";
+        RestTemplate restTemplate = new RestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+        HttpEntity<String> entity = new HttpEntity(o, headers);
+        ResponseEntity<JsonNode> result = restTemplate.exchange(uri, HttpMethod.POST, entity, JsonNode.class);
+        return result;
     }
 
-    private String getResponse(String apiPath) {
+    @GetMapping("/employee/{id}")
+    public ResponseEntity<JsonNode> getEmployee(@PathVariable("id") String id) {
+        System.out.println("Save Employee");
+        final String uri = baseUrl+ "employee"+ "/"+ id;
+        RestTemplate restTemplate = new RestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+        HttpEntity<String> entity = new HttpEntity( headers);
+        ResponseEntity<JsonNode> result = restTemplate.exchange(uri, HttpMethod.GET, entity, JsonNode.class);
+        return result;
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<JsonNode> deleteEmployee(@PathVariable("id") String id) {
+        System.out.println("delete Employee");
+        final String uri = baseUrl+ "delete"+ "/"+ id;
+        RestTemplate restTemplate = new RestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+        HttpEntity<String> entity = new HttpEntity( headers);
+        ResponseEntity<JsonNode> result = restTemplate.exchange(uri, HttpMethod.DELETE, entity, JsonNode.class);
+        return result;
+    }
+
+
+    @GetMapping(value = "/employees", produces = MediaType.APPLICATION_JSON_VALUE)
+    public JsonNode getAllEmployeesJSON() {
+        return getResponse("employees");
+    }
+
+    private JsonNode getResponse(String apiPath) {
         final String uri = baseUrl+ apiPath;
 
         RestTemplate restTemplate = new RestTemplate();
@@ -57,11 +98,10 @@ public class ConfigController {
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
         HttpEntity<String> entity = new HttpEntity(headers);
 
-        ResponseEntity<String> result = restTemplate.exchange(uri, HttpMethod.GET, entity, String.class);
-        String userList = result.getBody();
+        ResponseEntity<JsonNode> result = restTemplate.exchange(uri, HttpMethod.GET, entity, JsonNode.class);
 
-        System.out.println(userList);
-        return userList;
+        System.out.println(result.getBody());
+        return result.getBody();
 
     }
 }

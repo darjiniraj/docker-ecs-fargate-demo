@@ -20,6 +20,21 @@ export class CommonService {
     }
 
     getUsers() {
-        return this.http.get<any>('external/users');
+        return this.http.get<any>('external/employees');
+    }
+
+    getEmployeeById(id) {
+        return this.http.get<any>('external/employee/' + id);
+    }
+
+    saveEmployee(employee) {
+        return this.http.post('external/save', employee);
+    }
+
+    removeEmployee( employee) {
+        console.log(employee.id, 'delete service');
+        return this.http.delete('external/delete/' + employee.id).subscribe(data => {
+            console.log(data);
+        });
     }
 }

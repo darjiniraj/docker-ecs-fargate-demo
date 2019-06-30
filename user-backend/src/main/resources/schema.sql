@@ -1,0 +1,2 @@
+create table employee( id int AUTO_INCREMENT PRIMARY KEY, first_name varchar(250) not null, last_name varchar(250) not null, department varchar(250) not null);
+insert into employee values(1,'Jay', 'Patel', 'IT');
