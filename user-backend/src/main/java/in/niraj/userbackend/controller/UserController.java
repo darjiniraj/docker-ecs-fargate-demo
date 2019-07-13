@@ -50,7 +50,7 @@ public class UserController {
         return new ResponseEntity<>(employee, HttpStatus.OK);
     }
 
-    @DeleteMapping("/employee/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Employee> deleteEmployeeById(@PathVariable("id") String id) {
         logger.info("Delete employee");
         employeeService.delete(id);
@@ -59,7 +59,7 @@ public class UserController {
 
     @PostMapping("/save")
     public ResponseEntity<Employee> save(@RequestBody Employee employee) {
-        logger.info(" Save Employee");
+        logger.info(" Save Employee {} ", employee);
         Employee emp = employeeService.save(employee);
 
         return new ResponseEntity<>(emp, HttpStatus.OK);
@@ -72,22 +72,5 @@ public class UserController {
 
         return new ResponseEntity<>(emp, HttpStatus.OK);
     }
-
-    private List<User> staticUserList() {
-        List<User> userList = new ArrayList<>();
-        User user = new User("1", "Niraj", "niraj.darji@email.com");
-        User user1 = new User("2", "Umang", "umang.kagathara@email.com");
-        User user2 = new User("3", "Supan", "niraj.shah@email.com");
-        User user3 = new User("4", "jay", "jay.patel@email.com");
-
-        userList.add(user);
-        userList.add(user1);
-        userList.add(user2);
-        userList.add(user3);
-
-        return userList;
-
-    }
-
 
 }

@@ -26,8 +26,8 @@ public class ConfigController {
     private static final Logger logger = LoggerFactory.getLogger(ConfigController.class);
 
 
-    //@Value("${base.url:http://localhost:8080}")
-    private String baseUrl = "http://localhost:8080";
+    @Value("${base.url:http://localhost:8080}")
+    private String baseUrl;
 
     @GetMapping("/config")
     @ResponseBody
@@ -48,6 +48,7 @@ public class ConfigController {
     public ResponseEntity<JsonNode> saveEmployee(@RequestBody Object o) {
         System.out.println("Save Employee");
         final String uri = baseUrl+ "save";
+        logger.info("Employee save url is {} ",uri);
         RestTemplate restTemplate = new RestTemplate();
 
         HttpHeaders headers = new HttpHeaders();
@@ -73,7 +74,7 @@ public class ConfigController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<JsonNode> deleteEmployee(@PathVariable("id") String id) {
         System.out.println("delete Employee");
-        final String uri = baseUrl+ "delete"+ "/"+ id;
+        final String uri = baseUrl+ id;
         RestTemplate restTemplate = new RestTemplate();
 
         HttpHeaders headers = new HttpHeaders();

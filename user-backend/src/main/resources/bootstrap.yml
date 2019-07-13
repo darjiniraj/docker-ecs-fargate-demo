@@ -2,7 +2,9 @@ spring:
   application:
     name: test
   profiles:
-    active: qa
+    active: local
   cloud:
     config:
-      uri: http://18.206.160.185:8888
+      uri: http://54.157.202.250:8888
+server:
+  port: 90
