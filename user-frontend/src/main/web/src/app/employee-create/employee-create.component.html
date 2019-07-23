@@ -2,15 +2,16 @@
   <form [formGroup]="employeefrm" novalidate>
     <div class="form-group">
       <label for="firstName">First Name:</label>
-      <input type="text" class="form-control" id="first-name" placeholder="First Name" name="firstName">
+      <input type="text" class="form-control" id="first-name" formControlName="firstName" placeholder="First Name" name="firstName">
     </div>
     <div class="form-group">
       <label for="lastName">Last Name:</label>
-      <input type="text" class="form-control" id="last-name" placeholder="Last Name" name="lastName">
+      <input type="text" class="form-control" id="last-name" formControlName="lastName" placeholder="Last Name" name="lastName">
     </div>
     <div class="form-group">
       <label for="department">Department:</label>
-      <input type="text" class="form-control" id="department" placeholder="Department" name="department">
+      <input type="text" class="form-control" id="department" formControlName="department" placeholder="Department"
+        name="department">
     </div>
     <button type="submit" class="btn btn-primary" (click)="submitForm()">Submit</button>
     <button type="button" class="btn btn-primary" routerLink="/" routerLinkActive="active" style="margin-left:10px;">Back</button>

@@ -11,10 +11,6 @@ import { Subject, Observable } from 'rxjs';
 export class CommonService {
     constructor(private http: HttpClient) { }
 
-    // getServerUrl() {
-    //     return this.http.get('external/config', { responseType: 'text' });
-    // }
-
     getApiStatus() {
         return this.http.get<any>('external/status');
     }
@@ -31,10 +27,7 @@ export class CommonService {
         return this.http.post('external/save', employee);
     }
 
-    removeEmployee( employee) {
-        console.log(employee.id, 'delete service');
-        return this.http.delete('external/delete/' + employee.id).subscribe(data => {
-            console.log(data);
-        });
+    removeEmployee(employee) {
+        return this.http.delete('external/delete/' + employee.id);
     }
 }

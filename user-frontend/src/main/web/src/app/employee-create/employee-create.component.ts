@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { Employee } from '../employee-list/employee';
+import { ToastrService } from 'ngx-toastr';
 import { CommonService } from '../_services/common.service';
-
 
 @Component({
   selector: 'app-employee-create',
@@ -12,31 +11,36 @@ import { CommonService } from '../_services/common.service';
 export class EmployeeCreateComponent implements OnInit {
 
   private employeefrm: FormGroup;
-  constructor(private commonService: CommonService, private formBuilder: FormBuilder) { }
+  private employeeId;
+  constructor(
+    private commonService: CommonService,
+    private formBuilder: FormBuilder,
+    private _toastr: ToastrService
+  ) { }
 
   ngOnInit() {
-
     this.employeefrm = this.formBuilder.group({
       id: [],
       firstName: new FormControl('', [Validators.required]),
       lastName: new FormControl('', [Validators.required]),
       department: new FormControl('', [Validators.required]),
     });
-
-    const employeeId = localStorage.getItem('empId');
-
-    if (employeeId) {
-      this.commonService.getEmployeeById(employeeId).subscribe(response => {
+    this.employeeId = localStorage.getItem('empId');
+    if (this.employeeId) {
+      this.commonService.getEmployeeById(this.employeeId).subscribe(response => {
         this.employeefrm.setValue(response);
       });
     }
-
   }
 
   submitForm() {
     this.commonService.saveEmployee(this.employeefrm.value).subscribe(d => {
       this.employeefrm.reset();
-      console.log(d);
+      if (this.employeeId) {
+        this._toastr.success('Employee Updated successfully');
+      } else {
+        this._toastr.success('Employee Created successfully');
+      }
     });
   }
 
