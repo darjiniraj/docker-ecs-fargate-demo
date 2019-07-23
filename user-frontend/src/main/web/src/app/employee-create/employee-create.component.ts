@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormGroup, FormControl, Validators, FormBuilder} from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Employee } from '../employee-list/employee';
 import { CommonService } from '../_services/common.service';
 
@@ -27,7 +27,6 @@ export class EmployeeCreateComponent implements OnInit {
 
     if (employeeId) {
       this.commonService.getEmployeeById(employeeId).subscribe(response => {
-        console.log(response);
         this.employeefrm.setValue(response);
       });
     }
@@ -35,8 +34,8 @@ export class EmployeeCreateComponent implements OnInit {
   }
 
   submitForm() {
-    console.log(this.employeefrm.value);
-    this.commonService.saveEmployee(this.employeefrm.value).subscribe( d => {
+    this.commonService.saveEmployee(this.employeefrm.value).subscribe(d => {
+      this.employeefrm.reset();
       console.log(d);
     });
   }
